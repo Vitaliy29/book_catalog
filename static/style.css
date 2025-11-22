@@ -1,0 +1,16 @@
+.book-card {
+    transition: transform 0.2s;
+    height: 100%;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.status-planned { border-left: 4px solid #6c757d; }
+.status-reading { border-left: 4px solid #0d6efd; }
+.status-completed { border-left: 4px solid #198754; }
+
+.rating-stars {
+    color: #ffc107;
+}
