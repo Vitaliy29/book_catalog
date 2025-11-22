@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Редактировать книгу</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Название книги *</label>
+                            <input type="text" class="form-control" id="title" name="title" 
+                                   value="{{ book.title }}" required>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="author" class="form-label">Автор *</label>
+                            <input type="text" class="form-control" id="author" name="author" 
+                                   value="{{ book.author }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="year" class="form-label">Год издания *</label>
+                            <input type="number" class="form-control" id="year" name="year" 
+                                   min="1000" max="2030" value="{{ book.year }}" required>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="genre" class="form-label">Жанр *</label>
+                            <select class="form-select" id="genre" name="genre" required>
+                                <option value="">Выберите жанр...</option>
+                                {% for genre in genres %}
+                                    <option value="{{ genre }}" 
+                                            {% if book.genre == genre %}selected{% endif %}>
+                                        {{ genre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <label for="status" class="form-label">Статус *</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="">Выберите статус...</option>
+                                {% for value, label in statuses %}
+                                    <option value="{{ value }}"
+                                            {% if book.status == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Оценка</label>
+                        <select class="form-select" id="rating" name="rating">
+                            <option value="">Без оценки</option>
+                            {% for value, label in ratings %}
+                                <option value="{{ value }}"
+                                        {% if book.rating == value %}selected{% endif %}>
+                                    {{ label }} ⭐
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('book_detail', book_id=book.id) }}" class="btn btn-secondary me-md-2">Отмена</a>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
